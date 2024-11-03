@@ -23,7 +23,7 @@ public class Controladora {
             
             if(usu.getNombreUsuario().equals(usuario)){                
                 
-                if(usu.getContraseña().equals(contrasenia)){
+                if(usu.getContrasenia().equals(contrasenia)){
                                        
                    mensaje = "Usuario y contraseña correctos.\nBienvenido/a!";
                    return mensaje;

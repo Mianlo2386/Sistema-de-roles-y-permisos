@@ -1,5 +1,8 @@
+com\mianlodev\login\logica\Rol_.class
 com\mianlodev\login\persistencia\exceptions\NonexistentEntityException.class
 com\mianlodev\login\logica\Controladora.class
+com\mianlodev\login\persistencia\RolJpaController.class
+com\mianlodev\login\logica\Rol.class
 com\mianlodev\login\logica\Usuario.class
 com\mianlodev\login\igu\Principal$2.class
 com\mianlodev\login\logica\Usuario_.class
