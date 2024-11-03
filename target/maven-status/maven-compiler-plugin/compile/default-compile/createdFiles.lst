@@ -1,0 +1,12 @@
+com\mianlodev\login\persistencia\exceptions\NonexistentEntityException.class
+com\mianlodev\login\logica\Controladora.class
+com\mianlodev\login\logica\Usuario.class
+com\mianlodev\login\igu\Principal$2.class
+com\mianlodev\login\logica\Usuario_.class
+com\mianlodev\login\Login.class
+com\mianlodev\login\persistencia\ControladoraPersistencia.class
+com\mianlodev\login\igu\Principal.class
+com\mianlodev\login\persistencia\UsuarioJpaController.class
+com\mianlodev\login\persistencia\exceptions\PreexistingEntityException.class
+com\mianlodev\login\igu\Principal$1.class
+com\mianlodev\login\persistencia\exceptions\IllegalOrphanException.class
