@@ -5,6 +5,8 @@
     <artifactId>Login</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    
+      
     <dependencies>
         <!-- Jakarta EE 9.1 -->
         <dependency>
@@ -53,6 +55,9 @@
             <version>2.7.12</version>
         </dependency>
         
+        
+
+        
         <!-- JPA ModelGen Processor -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -66,6 +71,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.27</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>java-generator</artifactId>
+            <version>1.1.0</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <build>

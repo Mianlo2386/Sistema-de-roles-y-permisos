@@ -1,12 +1,12 @@
 package com.mianlodev.login;
 
-import com.mianlodev.login.igu.Principal;
+import com.mianlodev.login.igu.LoginInicial;
 
 public class Login {
 
     public static void main(String[] args) {
         
-        Principal principal = new Principal();
+        LoginInicial principal = new LoginInicial();
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
         
