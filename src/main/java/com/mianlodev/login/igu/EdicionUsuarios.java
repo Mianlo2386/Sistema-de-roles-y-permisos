@@ -2,20 +2,24 @@ package com.mianlodev.login.igu;
 
 import com.mianlodev.login.logica.Controladora;
 import com.mianlodev.login.logica.Rol;
+import com.mianlodev.login.logica.Usuario;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
-public class AltaUsuario extends javax.swing.JFrame {
-    
+public class EdicionUsuarios extends javax.swing.JFrame {
+    int id_usuario;
     Controladora control;
+    Usuario usu;
     
-    public AltaUsuario(Controladora control) {
+    public EdicionUsuarios(Controladora control, int id_usuario) {
         initComponents();
+        this.id_usuario = id_usuario;
         this.control = control;
     }
 
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -39,7 +43,7 @@ public class AltaUsuario extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel1.setText("Alta de usuarios");
+        jLabel1.setText("Edición de usuarios");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setText("Contraseña:");
@@ -94,7 +98,7 @@ public class AltaUsuario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(14, 14, 14)))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(37, 37, 37)
@@ -122,7 +126,7 @@ public class AltaUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(101, 101, 101)
@@ -144,7 +148,28 @@ public class AltaUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        String usuario = txtUsuario.getText();
+        String contra = txtContrasenia.getText();
+        String rol = (String) cmbRol.getSelectedItem();
+        
+        control.editarUsuario(usu, usuario, contra, rol);
+        
+        mostrarMensaje("Usuario editado correctamente", "Info", "Edición de usuario");
+        this.dispose();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
+        txtUsuario.setText("");
+        txtContrasenia.setText("");
+    }//GEN-LAST:event_btnLimpiar1ActionPerformed
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+               
+        usu = control.traerUsuario(id_usuario);
+        txtUsuario.setText(usu.getNombreUsuario());
+        txtContrasenia.setText(usu.getContrasenia());
         
         List<Rol> listaRoles = control.traerRoles();
         
@@ -154,23 +179,18 @@ public class AltaUsuario extends javax.swing.JFrame {
           }  
         }
         
+        String rol = usu.getUnRol().getNombreRol();
+        
+        int cantItems = cmbRol.getItemCount();
+        
+        for (int i = 0; i < cantItems; i++) {
+            if(String.valueOf(cmbRol.getItemAt(i)).equals(rol)){
+                cmbRol.setSelectedIndex(i);
+            }
+        }
+        
     }//GEN-LAST:event_formWindowOpened
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String usuario = txtUsuario.getText();
-        String contra = txtContrasenia.getText();
-        String rol = (String) cmbRol.getSelectedItem();
-        
-        control.crearUsuario(usuario, contra, rol);
-        
-        mostrarMensaje("Usuario creado correctamente", "Info", "Creación de usuario");
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
-        txtUsuario.setText("");
-        txtContrasenia.setText("");
-    }//GEN-LAST:event_btnLimpiar1ActionPerformed
-    
     public void mostrarMensaje(String mensaje, String tipo, String titulo){
         
         JOptionPane optionPane = new JOptionPane(mensaje);
@@ -184,7 +204,6 @@ public class AltaUsuario extends javax.swing.JFrame {
         dialog.setVisible(true);
                 
     }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

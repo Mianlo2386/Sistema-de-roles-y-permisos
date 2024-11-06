@@ -79,4 +79,25 @@ public class Controladora {
         return usu.getId();
         
     }
+
+    public void borrarUsuario(int id_usuario) {
+        controlPersis.borrarUsuario(id_usuario);
+    }
+
+    public Usuario traerUsuario(int id_usuario) {
+        return controlPersis.traerUsuario(id_usuario);
+    }
+
+    public void editarUsuario(Usuario usu, String usuario, String contra, String rolRecibido) {
+        
+        usu.setNombreUsuario(usuario);
+        usu.setContrasenia(contra);
+        
+        Rol rolEncontrado = new Rol();
+        rolEncontrado = this.traerRol(rolRecibido);
+        if(rolEncontrado != null){
+            usu.setUnRol(rolEncontrado);
+        }
+        controlPersis.editarUsuario(usu);
+    }
 }

@@ -3,6 +3,8 @@ package com.mianlodev.login.igu;
 import com.mianlodev.login.logica.Controladora;
 import com.mianlodev.login.logica.Usuario;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PrincipalAdmin extends javax.swing.JFrame {
@@ -65,12 +67,27 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         btnEditar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnEditar.setText("Editar usuario");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar Usuario");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnRecargar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnRecargar.setText("Recargar Tabla");
+        btnRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecargarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
@@ -120,11 +137,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtNombreUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(112, 112, 112)
+                        .addGap(115, 115, 115)
                         .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,9 +201,72 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         AltaUsuario altaUsu = new AltaUsuario(control);
         altaUsu.setVisible(true);
         altaUsu.setLocationRelativeTo(null);
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+        if(tablaUsuarios.getRowCount() > 0){
+            if(tablaUsuarios.getSelectedRow() != -1){
+                int id_usuario = Integer.parseInt(String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0)));
+                
+                control.borrarUsuario(id_usuario);
+                
+                mostrarMensaje("Usuario eliminado correctamente", "Info", "Eliminación exitosa");
+                
+                cargarTabla();
+            }
+            else{
+                mostrarMensaje("No selecciono ningún registro", "Error", "Error al borrar");
+            }
+        }
+        else{
+            mostrarMensaje("Tabla vacía", "Error", "Error al borrar");
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        
+       if(tablaUsuarios.getRowCount() > 0){
+            if(tablaUsuarios.getSelectedRow() != -1){
+                int id_usuario = Integer.parseInt(String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0)));
+                
+                EdicionUsuarios pantallaEdic = new EdicionUsuarios(control, id_usuario);
+                pantallaEdic.setVisible(true);
+                pantallaEdic.setLocationRelativeTo(null);
+                
+                //mostrarMensaje("Usuario editado correctamente", "Info", "Edición exitosa");
+                
+                //cargarTabla();
+            }
+            else{
+                mostrarMensaje("No selecciono ningún registro", "Error", "Error al editar");
+            }
+        }
+        else{
+            mostrarMensaje("Tabla vacía", "Error", "Error al editar");
+        } 
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+        cargarTabla();
+    }//GEN-LAST:event_btnRecargarActionPerformed
+    
+    public void mostrarMensaje(String mensaje, String tipo, String titulo){
+        
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if(tipo.equals("Info")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }else if(tipo.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+                
+    }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
